@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "89515300045",
+    "firebase_url": "https://hungry-bace2.firebaseio.com",
+    "project_id": "hungry-bace2",
+    "storage_bucket": "hungry-bace2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:89515300045:android:3844f46b00fdd4a5a04584",
+        "android_client_info": {
+          "package_name": "com.example.hungry"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "89515300045-1trf3n733b9ht5jhe1773st69e46tmqv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.hungry",
+            "certificate_hash": "28214ba2d86b96eed3bf772a6a8404f9639d6504"
+          }
+        },
+        {
+          "client_id": "89515300045-5fvkjh2sti6vs6milp648qbe3ib4npou.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwPDUCcSjQMEM1nK58lPwB5CNFgBN5vHE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "89515300045-5fvkjh2sti6vs6milp648qbe3ib4npou.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
