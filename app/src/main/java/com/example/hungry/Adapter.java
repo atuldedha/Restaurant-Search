@@ -43,7 +43,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         String costForTwo = restaurantList.get(position).getCostForTwo();
 
         holder.restaurantName.setText(name);
-        Glide.with(mContext).load(image).apply(new RequestOptions().placeholder(R.drawable.ic_baseline_insert_photo_24))
+        Glide.with(holder.itemView.getContext()).load(image).apply(new RequestOptions().placeholder(R.drawable.ic_baseline_insert_photo_24))
                 .into(holder.restaurantImage);
         holder.costForTwo.setText("cost for two = "+ costForTwo);
 
@@ -56,7 +56,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                 restaurantInfo.putExtra("ress_name", restaurantList.get(position).getName());
                 restaurantInfo.putExtra("res_location", "");
 
-                mContext.startActivity(restaurantInfo);
+                holder.itemView.getContext().startActivity(restaurantInfo);
 
             }
         });

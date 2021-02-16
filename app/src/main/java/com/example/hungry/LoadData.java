@@ -21,8 +21,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.example.hungry.MainActivity.gpsTracker;
-
 public class LoadData {
 
     public static final String API_KEY = "e33f7a2136d0da0aecfeeb6572adc3eb";
@@ -38,9 +36,10 @@ public class LoadData {
     }
 
     public static void loadDataWithLocation(final RecyclerView recyclerView){
+
         RequestQueue requestQueue = Volley.newRequestQueue(mContext);
 
-        StringRequest jsonObjectRequest = new StringRequest(Request.Method.GET, url + "lat=" + gpsTracker.getLatitude() + "&lon=" + gpsTracker.getLongitude(),
+        StringRequest jsonObjectRequest = new StringRequest(Request.Method.GET, url + "lat=" + MainActivity.gpsTracker.getLatitude() + "&lon=" + MainActivity.gpsTracker.getLongitude(),
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -106,6 +105,7 @@ public class LoadData {
     }
 
     public static void loadDataWithKeyword(String keyword, final RecyclerView recyclerView){
+
         RequestQueue requestQueue = Volley.newRequestQueue(mContext);
 
         StringRequest jsonObjectRequest = new StringRequest(Request.Method.GET, MainActivity.url + "q=" + keyword + "&lat=" + MainActivity.gpsTracker.getLatitude() + "&lon=" + MainActivity.gpsTracker.getLongitude(),

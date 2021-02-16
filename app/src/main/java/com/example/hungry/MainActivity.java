@@ -1,19 +1,24 @@
 package com.example.hungry;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.location.LocationManagerCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -52,23 +57,14 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ImageView searchIcon;
 
-    public static GPSTracker gpsTracker;
-
     private LoadData loadData;
+
+    public static GPSTracker gpsTracker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        checkPermission();
-
-        gpsTracker = new GPSTracker(this);
-
-        if (gpsTracker.canGetLocation) {
-            gpsTracker.getLocation();
-            Log.d("Location", "" + gpsTracker.getLatitude() + "," + gpsTracker.getLongitude());
-        }
 
         loadData = new LoadData(this);
 
@@ -79,6 +75,8 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
 
         recyclerView.setHasFixedSize(false);
+
+        checkPermission();
 
         searchIcon = findViewById(R.id.searchIcon);
         searchIcon.setOnClickListener(new View.OnClickListener() {
@@ -91,14 +89,30 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        if(loadData.restaurantList.size() == 0){
-            loadData.loadDataWithLocation(recyclerView);
-        }else{
-            adapter = new Adapter(loadData.restaurantList, this);
-            recyclerView.setAdapter(adapter);
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        gpsTracker = new GPSTracker(this);
+
+        if (gpsTracker.canGetLocation) {
+            gpsTracker.getLocation();
+            Log.d("Location", "" + gpsTracker.getLatitude() + "," + gpsTracker.getLongitude());
         }
 
+        if(loadData.restaurantList.size() == 0) {
 
+            loadData.loadDataWithLocation(recyclerView);
+
+        }else{
+
+            adapter = new Adapter(loadData.restaurantList, this);
+            recyclerView.setAdapter(adapter);
+
+        }
     }
 
     private void checkPermission() {
@@ -107,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(MainActivity.this,
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         }
+
     }
 
     @Override
@@ -118,6 +133,16 @@ public class MainActivity extends AppCompatActivity {
                     if (ContextCompat.checkSelfPermission(MainActivity.this,
                             Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                         Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show();
+
+                        gpsTracker = new GPSTracker(this);
+
+                        if (gpsTracker.canGetLocation) {
+                            gpsTracker.getLocation();
+                            Log.d("Location", "" + gpsTracker.getLatitude() + "," + gpsTracker.getLongitude());
+                        }
+
+                        loadData.loadDataWithLocation(recyclerView);
+
                     }
                 } else {
                     checkPermission();

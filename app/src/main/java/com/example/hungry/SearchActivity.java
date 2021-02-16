@@ -59,8 +59,6 @@ public class SearchActivity extends AppCompatActivity {
 
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        recyclerView.setHasFixedSize(true);
-
         searchEditText = findViewById(R.id.searchEditText);
         searchEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -90,19 +88,10 @@ public class SearchActivity extends AppCompatActivity {
         super.onStart();
 
         if(search!=null){
-            if(loadData.searchedList.size() == 0){
                 loadData.loadDataWithKeyword(search, recyclerView);
-            }else{
-                adapter = new Adapter(loadData.searchedList, this);
-                recyclerView.setAdapter(adapter);
-            }
         }else{
-            if(loadData.restaurantList.size() == 0){
                 loadData.loadDataWithLocation(recyclerView);
-            }else{
-                adapter = new Adapter(loadData.restaurantList, this);
-                recyclerView.setAdapter(adapter);
-            }
+
         }
 
     }
